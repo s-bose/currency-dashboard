@@ -1,7 +1,6 @@
 # Currency dashboard backend
 Written in `FastAPI`
 
----
 
 ## Starting the server
 
@@ -26,6 +25,10 @@ pytest -v
 
 ---
 
-## Endpoints
-|`Endpoint`|`Method`|`Description`|
-|:---------|:-------|:------------|
+## Documentations
+
+### Swagger UI at `/docs`
+<img src=".github/../../.github/docs/swagger.png" width="500px">
+
+### Redoc at `/redoc`
+<img src=".github/../../.github/docs/redoc.png" width="500px">
