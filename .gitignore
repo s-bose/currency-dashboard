@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 
 # Created by https://www.toptal.com/developers/gitignore/api/virtualenv,python,venv
 # Edit at https://www.toptal.com/developers/gitignore?templates=virtualenv,python,venv
 
 ### Python ###
+=======
+##################################################################
+# Python gitignore
+# https://github.com/github/gitignore/blob/main/Python.gitignore
+##################################################################
+
+>>>>>>> 64550dfcc37b000e332ffadac9b9663cbe7038e2
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -154,6 +162,7 @@ cython_debug/
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
+<<<<<<< HEAD
 #.idea/
 
 ### venv ###
@@ -173,3 +182,6 @@ pip-selfcheck.json
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
 
 # End of https://www.toptal.com/developers/gitignore/api/virtualenv,python,venv
+=======
+#.idea/
+>>>>>>> 64550dfcc37b000e332ffadac9b9663cbe7038e2
