@@ -1,4 +1,4 @@
-# Currency exchange backend
+# Currency dashboard backend
 Written in `FastAPI`
 
 ---

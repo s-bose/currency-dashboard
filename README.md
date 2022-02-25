@@ -17,3 +17,9 @@
 |`/forecast`|`POST`|datetime|
 |`/forecast`|`POST`|from- time, to- time|
 |`/exchange_rate/currency`|`GET`, `POST`|amount|
+
+## Possible choices for Sources
+
+- https://exchangerate.host/#/
+- https://freecurrencyapi.net/
+- https://www.fxstreet.com/rates-charts/forecast
