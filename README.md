@@ -1,16 +1,19 @@
-hello world
+# Currency Dashboard
 
-FRONTEND - VueJS 3
-BACKEND - FastAPI 
+## Stack:
 
-APIs
+`VueJS` Frontend | `FastAPI` Backend
 
-/currencies - GET
-/convert/?from=A&?to=B - GET/ POST
-/forecast/today
-/forecast/tomorrow
-/forecast/next/days/7
-/forecast/next/days/30
-/forecast               - POST datetime
-/forecast               - POST from- time, to- time
-/exchange_rate/currency - GET/ POST (amount)
+## Necessary endpoints
+
+|**Endpoints**|**Method**|**Remarks**|
+|:------------|:---------|:----------|
+|`/currencies`|`GET`||
+|`/convert/?from=A&?to=B`|`GET`, `POST`||
+|`/forecast/today`|`GET`||
+|`/forecast/tomorrow`|`GET`||
+|/forecast/next/days/7|`GET`||
+|/forecast/next/days/30|`GET`||
+|`/forecast`|`POST`|datetime|
+|`/forecast`|`POST`|from- time, to- time|
+|`/exchange_rate/currency`|`GET`, `POST`|amount|
