@@ -1,6 +1,6 @@
+from configs import settings
 from datetime import datetime
 from fastapi import APIRouter
-from configs import settings
 from models.response import meta
 
 dt = datetime.now().strftime(settings.PY_DATETIME_FORMAT)

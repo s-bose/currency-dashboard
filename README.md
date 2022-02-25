@@ -40,3 +40,7 @@
 - https://exchangerate.host/#/
 - https://freecurrencyapi.net/
 - https://www.fxstreet.com/rates-charts/forecast
+
+
+## Backend requirements
+`requirements.txt`
