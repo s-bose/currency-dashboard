@@ -1,10 +1,12 @@
 from configs import settings
 from datetime import datetime
-from fastapi import APIRouter
 from models.response import meta
+from fastapi import APIRouter, Request, status, HTTPException
+
 
 dt = datetime.now().strftime(settings.PY_DATETIME_FORMAT)
 router = APIRouter()
+
 
 @router.get('/', tags=['Info'], response_model=dict)
 def index():
@@ -47,8 +49,11 @@ def get_tomorrows_forecast():
 
 
 @router.get('/forecast/next/days/{days}', tags=['Forecast'])
-def get_forecast_for_next_n_days(days: int):
-    return {'ep': '/forecast/next/days/{days}'}
+def get_forecast_for_next_n_days(days: int = 7):
+    if days not in [7, 30]:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f'days value {days} not expected. Possible vals: 7, 30')
+    else:
+        return {'ep': '/forecast/next/days/{days}'}
 
 
 @router.post('/forecast', tags=['Forecast'])
