@@ -1,3 +1,4 @@
+alembic==1.7.6
 anyio==3.5.0
 asgiref==3.5.0
 atomicwrites==1.4.0
@@ -7,11 +8,15 @@ charset-normalizer==2.0.12
 click==8.0.4
 colorama==0.4.4
 coverage==6.3.2
+databases==0.5.5
 fastapi==0.74.1
+greenlet==1.1.2
 h11==0.13.0
 httptools==0.3.0
 idna==3.3
 iniconfig==1.1.1
+Mako==1.1.6
+MarkupSafe==2.1.0
 packaging==21.3
 pluggy==1.0.0
 py==1.11.0
@@ -23,9 +28,10 @@ python-dotenv==0.19.2
 PyYAML==6.0
 requests==2.27.1
 sniffio==1.2.0
+SQLAlchemy==1.4.31
 starlette==0.17.1
 tomli==2.0.1
-typing-extensions==4.1.1
+typing_extensions==4.1.1
 urllib3==1.26.8
 uvicorn==0.17.5
 watchgod==0.7
