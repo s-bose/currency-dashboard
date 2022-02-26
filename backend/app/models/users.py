@@ -1,8 +1,16 @@
+from typing import Optional
+
 from uuid import UUID
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, validator
 
 class Users(BaseModel):
     id: UUID
-    name: str
+    name: Optional[str] = None
     email: EmailStr
     password: str
+
+    @validator('name', always=True)
+    def name_validator(cls, v, values):
+        if not v:
+            v = values['email'].split('@')[0]
+        return v
