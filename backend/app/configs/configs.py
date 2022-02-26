@@ -3,7 +3,7 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = 'FutureMsg'
+    PROJECT_NAME: str = 'Forexchange'
     API_STR: str = '/api'
     VERSION: str = '1.0.0'
     ALGORITHM: str = 'HS256'
