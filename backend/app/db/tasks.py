@@ -2,13 +2,13 @@ from fastapi import FastAPI
 from databases import Database
 import logging
 
-from app.configs.configs import Settings
+from app.configs.configs import settings
 
 logger = logging.getLogger(__name__)
 
 
-async def app_start_handler(app: FastAPI) -> None:
-    database = Database(Settings.DATABASE_URI, min_size=2, max_size=10)
+async def connect_to_db(app: FastAPI) -> None:
+    database = Database(settings.DATABASE_URI, min_size=2, max_size=10)
 
     try:
         await database.connect()
@@ -19,7 +19,7 @@ async def app_start_handler(app: FastAPI) -> None:
         logger.warn('--- DB CONNECTION ERROR ---')
     
 
-async def app_stop_handler(app: FastAPI) -> None:
+async def close_db_connection(app: FastAPI) -> None:
     try:
         await app.state._db.disconnect()
     except Exception as e:

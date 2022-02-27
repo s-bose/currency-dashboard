@@ -1,7 +1,7 @@
-from configs import settings
+from app.configs.configs import settings
 from datetime import datetime
 from fastapi import APIRouter
-from models.response import meta
+from app.models.response import meta
 
 dt = datetime.now().strftime(settings.PY_DATETIME_FORMAT)
 router = APIRouter()
