@@ -1,10 +1,12 @@
+import logging
 from fastapi import FastAPI
 from databases import Database
-import logging
 
-from app.configs.configs import settings
 
-logger = logging.getLogger(__name__)
+from ..configs.configs import settings
+
+# logging.basicConfig(filename='out.log', level=logging.INFO)
+logger = logging.getLogger('uvicorn')
 
 
 async def connect_to_db(app: FastAPI) -> None:
@@ -22,9 +24,13 @@ async def connect_to_db(app: FastAPI) -> None:
         logger.warn('--- DB CONNECTION ERROR ---')
     
 
+
 async def close_db_connection(app: FastAPI) -> None:
     try:
+        logger.info('--- disconnecting database ---')
         await app.state._db.disconnect()
+        logger.info('--- database disconnected ---')
+
     except Exception as e:
         logger.warn("--- DB DISCONNECT ERROR ---")
         logger.warn(e)

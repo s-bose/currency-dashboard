@@ -2,8 +2,8 @@ from uuid import UUID
 from pydantic import EmailStr
 from databases import Database
 
-from app.db.crud.base import BaseCrud
-from app.models.users import UserCreate, UsersDB
+from .base import BaseCrud
+from ...models.users import UserCreate, UsersDB
 
 
 class UsersCrud(BaseCrud):
