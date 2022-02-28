@@ -3,7 +3,7 @@ from typing import Optional
 from uuid import UUID
 from pydantic import BaseModel, EmailStr, SecretStr, validator
 
-class Users(BaseModel):
+class Users(BaseModel):     # base class
     id: UUID
     name: str
     email: EmailStr
@@ -22,11 +22,8 @@ class UserCreate(BaseModel):
         return v
 
     
-class UsersDB(BaseModel):
+class UserSchema(BaseModel):
     id: UUID
     name: str
     email: EmailStr
 
-
-class UserSchema(UsersDB):
-    pass

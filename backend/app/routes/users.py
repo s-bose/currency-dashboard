@@ -1,28 +1,49 @@
 
+from http.client import HTTPException
 from pydantic import EmailStr
 from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
+from starlette import status
+
 
 from ..db.crud.users import UsersCrud
 from ..dependencies.database import get_crud
-from ..models.users import UserCreate
+from ..dependencies.auth import get_current_user
 
-router = APIRouter()
+from ..models.users import UserCreate, UserSchema
 
-@router.get('/users')
+router = APIRouter(prefix='/users')
+
+@router.get('/', response_model=UserSchema)
 async def get_user(
-    email: EmailStr,
-    user_crud: UsersCrud = Depends(get_crud(UsersCrud))
+    user: UserSchema = Depends(get_current_user)
 ):
-
-    user = await user_crud.get_user_by_email(email=email)
     return user
 
 
-@router.post('/users')
-async def add_user(
+@router.post('/register', response_model=UserSchema)
+async def user_register(
     user_schema: UserCreate,
-    user_crud: UsersCrud = Depends(get_crud(UsersCrud))
-):
+    crud: UsersCrud = Depends(get_crud(UsersCrud))
+) -> UserSchema:
 
-    new_user = await user_crud.create_user(user_schema)
+    new_user = await crud.create_user(user_schema)
     return new_user
+
+
+@router.post('/login')
+async def user_login(
+    *, 
+    form: OAuth2PasswordRequestForm = Depends(),
+    crud: UsersCrud = Depends(get_crud(UsersCrud)) 
+):
+    if await crud.get_user_by_email(email=form.username) is None:
+        raise HTTPException(
+            status.HTTP_404_NOT_FOUND,
+            detail='email not found'
+        )
+
+    if user := await crud.auth_user(
+        email=form.username,
+        password=form.password
+    )

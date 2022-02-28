@@ -1,27 +1,26 @@
+from http.client import HTTPException
 from uuid import UUID
-from pydantic import EmailStr
+from pydantic import EmailStr, SecretStr
 from databases import Database
 
 from .base import BaseCrud
-from ...models.users import UserCreate, UsersDB
-
+from ...models.users import Users, UserCreate, UsersDB
+from ...core import security
 
 class UsersCrud(BaseCrud):
 
     QUERY_CREATE_USER = """
         INSERT INTO users (name, email, password)
         VALUES (:name, :email, :password)
-        returning id, name, email;
+        returning id, name, email, password;
     """
 
     QUERY_GET_USER = """
-        SELECT id, name, email FROM users
-        WHERE id=:id;
+        SELECT * FROM users WHERE id=:id;
     """
 
     QUERY_GET_USER_BY_EMAIL = """
-        SELECT id, name, email FROM users
-        WHERE email=:email;
+        SELECT * FROM users WHERE email=:email;
     """
 
     QUERY_DELETE_USER = """
@@ -29,26 +28,42 @@ class UsersCrud(BaseCrud):
     """
 
 
-    async def create_user(self, new_user: UserCreate) -> UsersDB:
+    async def create_user(self, new_user: UserCreate) -> Users:
         values = new_user.dict()
         response = await self.db.fetch_one(self.QUERY_CREATE_USER, values=values)
 
-        return UsersDB(**response)
+        return Users(**response)
 
     
-    async def get_user_by_email(self, email: EmailStr) -> UsersDB:
+    async def get_user_by_email(self, email: EmailStr) -> Users:
         response = await self.db.fetch_one(self.QUERY_GET_USER_BY_EMAIL,
                                            value={'email': email})
 
-        return UsersDB(**response)
+        return Users(**response)
 
     
-    async def get_user_by_id(self, id: UUID) -> UsersDB:
+    async def get_user_by_id(self, id: UUID) -> Users:
         response = await self.db.fetch_one(self.QUERY_GET_USER, value={'id': id})
 
-        return UsersDB(**response)
+        return Users(**response)
 
-    
+
+
+    async def auth_user(
+        self,
+        email: EmailStr,
+        password: str
+    ) -> Users:
+
+        user: Users = await self.get_user_by_email(email=email)
+        if not security.verify_password(
+                                plain_pwd=password,
+                                hash_pwd=user.password.get_secret_value()): 
+            
+            return None
+        
+        return user
+
     # async def delete_user(self, id: UUID) -> UsersDB:
     #     response = await self.db.fetch_one(self.QUERY_DELETE_USER, value={'id': id})
 
