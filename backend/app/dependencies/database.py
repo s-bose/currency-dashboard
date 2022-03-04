@@ -1,18 +1,12 @@
-from tokenize import Token
-import jwt
 from typing import Callable, Type
 from databases import Database
 from fastapi import Depends
 
-from fastapi.security import OAuth2PasswordBearer
-from starlette import status
 
 from starlette.requests import Request
 
-from app.models.users import UserSchema, UsersDB
 
-from ..db.crud import BaseCrud, UsersCrud
-from ..configs.configs import settings
+from ..db.crud import BaseCrud
 
 
 def get_db(request: Request) -> Database:

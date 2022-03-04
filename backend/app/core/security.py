@@ -10,11 +10,11 @@ pwd_context: CryptContext = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 
 def gen_hash(*, password: SecretStr) -> str:
-    pwd_context.hash(password.get_secret_value())
+    return pwd_context.hash(password.get_secret_value())
 
 
-def verify_password(*, plain_pwd: SecretStr, hash_pwd: str) -> bool:
-    return pwd_context.verify(plain_pwd.get_secret_value(), hash_pwd)
+def verify_password(*, plain_pwd: str, hash_pwd: str) -> bool:
+    return pwd_context.verify(plain_pwd, hash_pwd)
 
 
 def create_access_token(data: dict) -> str:

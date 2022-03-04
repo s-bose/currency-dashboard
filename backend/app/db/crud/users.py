@@ -1,10 +1,8 @@
-from http.client import HTTPException
 from uuid import UUID
-from pydantic import EmailStr, SecretStr
-from databases import Database
+from pydantic import EmailStr
 
 from .base import BaseCrud
-from ...models.users import Users, UserCreate, UsersDB
+from ...models.users import Users, UserCreate
 from ...core import security
 
 class UsersCrud(BaseCrud):
@@ -30,6 +28,8 @@ class UsersCrud(BaseCrud):
 
     async def create_user(self, new_user: UserCreate) -> Users:
         values = new_user.dict()
+        values['password'] = security.gen_hash(password=values['password'])
+
         response = await self.db.fetch_one(self.QUERY_CREATE_USER, values=values)
 
         return Users(**response)
@@ -37,13 +37,13 @@ class UsersCrud(BaseCrud):
     
     async def get_user_by_email(self, email: EmailStr) -> Users:
         response = await self.db.fetch_one(self.QUERY_GET_USER_BY_EMAIL,
-                                           value={'email': email})
+                                           values={'email': email})
 
         return Users(**response)
 
     
     async def get_user_by_id(self, id: UUID) -> Users:
-        response = await self.db.fetch_one(self.QUERY_GET_USER, value={'id': id})
+        response = await self.db.fetch_one(self.QUERY_GET_USER, values={'id': id})
 
         return Users(**response)
 

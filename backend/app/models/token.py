@@ -1,7 +1,8 @@
-from datetime import datetime
+from datetime import timedelta
+from uuid import UUID
 from pydantic import BaseModel
 
 
 class Token(BaseModel):
-    expires: datetime
-    data: dict
+    exp: timedelta
+    id: UUID

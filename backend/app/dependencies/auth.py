@@ -11,7 +11,7 @@ from ..models.token import Token
 
 
 reusable_oauth2 = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.API_STR}/user/login"
+    tokenUrl=f"{settings.API_STR}/users/login"
 )
 
 
@@ -27,7 +27,7 @@ async def get_current_user(
                                 settings.SECRET_KEY,
                                 algorithms=[settings.ALGORITHM]
                             )
-    
+        print(payload)
     except jwt.PyJWTError:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, 
@@ -35,7 +35,7 @@ async def get_current_user(
         )
 
     token_data = Token(**payload)
-    if user := await crud.get_user_by_id(token_data.data) is None:
+    if (user := await crud.get_user_by_id(token_data.id)) is None:
         raise HTTPException(
                             status.HTTP_404_NOT_FOUND,
                             detail='user not found'

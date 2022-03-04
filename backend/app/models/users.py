@@ -11,9 +11,10 @@ class Users(BaseModel):     # base class
 
     
 class UserCreate(BaseModel):
-    name: Optional[str] = None
     email: EmailStr
     password: SecretStr
+    name: Optional[str] = None
+
 
     @validator('name', always=True)
     def name_validator(cls, v, values):

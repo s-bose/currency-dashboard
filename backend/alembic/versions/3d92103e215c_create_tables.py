@@ -22,9 +22,9 @@ def create_users_table() -> None:
         'users',
         sa.Column('id', types.uuid.UUIDType(), server_default=sa.text('gen_random_uuid()'), nullable=False),
         sa.Column('name', sa.String, nullable=False),
-        sa.Column('email', sa.String, nullable=False),
+        sa.Column('email', sa.String, nullable=False, unique=True),
         sa.Column('password', sa.String, nullable=False),
-        sa.PrimaryKeyConstraint('id')
+        sa.PrimaryKeyConstraint('id'),
     )
 
 
@@ -32,7 +32,7 @@ def create_currency_table() -> None:
     op.create_table(
         'currencies',
         sa.Column('id', types.uuid.UUIDType(), server_default=sa.text('gen_random_uuid()'), nullable=False),
-        sa.Column('name', sa.String, nullable=False),
+        sa.Column('name', sa.String, nullable=False, unique=True),
         sa.Column('country', sa.String, nullable=False),
         sa.PrimaryKeyConstraint('id')
     )
