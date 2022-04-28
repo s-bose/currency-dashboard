@@ -11,7 +11,6 @@ python -m pip install -r requirements.txt
 **Development**
 ```bash
 uvicorn app:app --reload
-```
 
 **Production**
 ```bash

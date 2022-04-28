@@ -16,7 +16,7 @@ def get_metadata() -> meta.Meta:
     response = meta.Meta(
         started_at=dt,
         available_endpoints=[route.path for route in router.routes]
-    )
+    )   
     return response
 
 
